@@ -115,6 +115,7 @@ extension GameScene {
         enemy.physicsBody = SKPhysicsBody(texture: enemy.texture!, size: enemy.size)
         enemy.physicsBody?.categoryBitMask = 0x00000001
         enemy.physicsBody?.contactTestBitMask = 0x00000000
+        enemy.physicsBody?.collisionBitMask = 0x00000000
         enemy.name = "Enemy_\(number)"
         enemy.physicsBody?.affectedByGravity = false
         self.addChild(enemy)
@@ -134,7 +135,7 @@ extension GameScene {
         sprite.physicsBody = SKPhysicsBody(texture: sprite.texture!, size: sprite.size)
         sprite.physicsBody?.affectedByGravity = true
         sprite.physicsBody?.linearDamping = 0
-        sprite.physicsBody?.contactTestBitMask = 0x00000100
+        sprite.physicsBody?.contactTestBitMask = 0x00000110
     }
 
 }

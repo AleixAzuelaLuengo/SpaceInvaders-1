@@ -17,7 +17,9 @@ class GameScene: SKScene {
     private var spaceshipTouch: UITouch?
     var scoreLabel: SKLabelNode!
     var bombTimer: Timer?
-    
+    var enemyMoveTimer: Timer?
+    var direction : Direction = .right
+    var prevDirection : Direction = .right
     var currentScore: Int = 0
     let enemiesVerticaSpacing: CGFloat = 50.0
     var houseImpacts = [0, 0, 0, 0]
@@ -27,9 +29,14 @@ class GameScene: SKScene {
         
         self.backgroundColor = .black
         self.spaceShip = SKSpriteNode(imageNamed: "SpaceShip")
-        self.spaceShip.name = "spaceship"
+        self.spaceShip.name = "Player"
         self.spaceShip.size = CGSize(width: 50, height: 25)
         self.spaceShip.position = CGPoint(x: 0, y: spaceshipYPositon)
+        self.spaceShip.physicsBody = SKPhysicsBody(texture: self.spaceShip.texture!, size: self.spaceShip.size)
+        self.spaceShip.physicsBody?.categoryBitMask = 0x00000010
+        self.spaceShip.physicsBody?.affectedByGravity = false
+        self.spaceShip.physicsBody?.contactTestBitMask = 0x00000101
+        self.spaceShip.physicsBody?.collisionBitMask = 0x00000000
         self.addChild(self.spaceShip)
         
         self.addHouses(spaceshipYPositon)
@@ -43,6 +50,7 @@ class GameScene: SKScene {
         self.addChild(self.scoreLabel)
         
         self.bombTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(dropBomb), userInfo: nil, repeats: true)
+        self.enemyMoveTimer = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(moveEnemies), userInfo: nil, repeats: true)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -105,8 +113,10 @@ extension GameScene {
     }
     
     @objc
-    private func dropBomb() {
-        let bottomEnemies = self.children.filter { node in
+    private func dropBomb()
+    {
+        let bottomEnemies = self.children.filter
+        { node in
             guard let isEnemy = node.name?.hasPrefix("Enemy"), isEnemy == true else { return false }
             let bottomPosition = CGPoint(x: node.position.x, y: node.position.y - self.enemiesVerticaSpacing)
             let enemies = self.nodes(at: bottomPosition)
@@ -122,5 +132,80 @@ extension GameScene {
                                    y: shooterEnemy.position.y - self.enemiesVerticaSpacing / 2)
         self.createBomb(at: bombPosition)
     }
+    
+    @objc
+    private func moveEnemies()
+    {
+
+        let enemySpacing = self.size.width / 16
+        var actionArray : [SKAction] = []
+        
+        let enemies = self.children.filter
+        {
+            $0.name?.hasPrefix("Enemy") ?? false
+        }
+        
+        switch self.direction
+        {
+            case .right:
+                let maxX = enemies.reduce(CGFloat(Int.min)) { max($0,$1.position.x) }
+                if((maxX + enemySpacing) >= self.size.width / 2)
+                {
+                    self.direction = .down
+                    self.prevDirection = .right
+                }
+                break;
+            case .left:
+                let minX = enemies.reduce(CGFloat(Int.max)) { min($0,$1.position.x) }
+                if((minX - enemySpacing) <= -self.size.width / 2)
+                {
+                    self.direction = .down
+                    self.prevDirection = .left
+                }
+                break;
+            case .down:
+                switch self.prevDirection
+                {
+                    case .right:
+                        self.direction = .left
+                        break;
+                    case .left:
+                        self.direction = .right
+                        break;
+                    case .down:
+                        self.direction = .down
+                        break;
+                }
+                break;
+        }
+        
+        enemies.forEach
+        { (enemy) in
+            let movingAction = SKAction.run({
+                switch self.direction
+                {
+                    case .right:
+                        enemy.run(SKAction.moveBy(x: enemySpacing, y: 0, duration: 0))
+                        break;
+                    case .left:
+                        enemy.run(SKAction.moveBy(x: -enemySpacing, y: 0, duration: 0))
+                        break;
+                    case .down:
+                        enemy.run(SKAction.moveBy(x: 0, y: -self.enemiesVerticaSpacing, duration: 0))
+                        break;
+                }
+                
+            })
+            actionArray.append(movingAction)
+        }
+        
+        self.run(SKAction.group(actionArray))
+    }
 }
 
+enum Direction
+{
+    case left
+    case right
+    case down
+}

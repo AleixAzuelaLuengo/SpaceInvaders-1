@@ -19,8 +19,10 @@ extension GameScene: SKPhysicsContactDelegate {
         let oneNodeIsShoot = nameA == "shoot" || nameB == "shoot"
         let oneNodeIsBomb = nameA == "bomb" || nameB == "bomb"
         let oneNodeIsHouse = nameA.hasPrefix("house") || nameB.hasPrefix("house")
+        let oneNodeIsPlayer = nameA == "Player" || nameB == "Player"
 
-        if oneNodeIsEnemy && oneNodeIsShoot {
+        if oneNodeIsEnemy && oneNodeIsShoot
+        {
             nodeA.removeFromParent()
             nodeB.removeFromParent()
             
@@ -31,15 +33,31 @@ extension GameScene: SKPhysicsContactDelegate {
             
             return
         }
-        
-        if oneNodeIsHouse && oneNodeIsBomb {
+        if oneNodeIsPlayer && oneNodeIsBomb
+        {
+            run(self.bombSound)
+            if(nodeB.name != "Player")
+            {
+                nodeB.removeFromParent();
+            }
+            if(nodeA.name != "Player")
+            {
+                nodeA.removeFromParent();
+            }
+            self.currentScore -= 1
+            self.scoreLabel.text = "SCORE: \(self.currentScore)"
+            return
+        }
+        if oneNodeIsHouse && oneNodeIsBomb
+        {
             run(self.bombSound)
             nodeA.removeFromParent()
             nodeB.removeFromParent()
             return
         }
 
-        if oneNodeIsShoot && oneNodeIsBomb {
+        if oneNodeIsShoot && oneNodeIsBomb
+        {
             nodeA.removeFromParent()
             nodeB.removeFromParent()
             return
