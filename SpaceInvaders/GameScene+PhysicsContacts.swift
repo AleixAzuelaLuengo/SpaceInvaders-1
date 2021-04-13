@@ -33,19 +33,20 @@ extension GameScene: SKPhysicsContactDelegate {
             
             return
         }
+        
+        if oneNodeIsEnemy && oneNodeIsHouse
+        {
+            self.isPaused = true;
+            self.resetGame();
+            self.isPaused = false;
+            return
+        }
+        
         if oneNodeIsPlayer && oneNodeIsBomb
         {
-            run(self.bombSound)
-            if(nodeB.name != "Player")
-            {
-                nodeB.removeFromParent();
-            }
-            if(nodeA.name != "Player")
-            {
-                nodeA.removeFromParent();
-            }
-            self.currentScore -= 1
-            self.scoreLabel.text = "SCORE: \(self.currentScore)"
+            self.isPaused = true;
+            self.resetGame();
+            self.isPaused = false;
             return
         }
         if oneNodeIsHouse && oneNodeIsBomb

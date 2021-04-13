@@ -14,10 +14,74 @@
             filePath = "SpaceInvaders/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "moveEnemies()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3DF6C648-D5B3-41AA-A052-364483B4EA35"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpaceInvaders/GameViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "restartGame()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EBCFBBC4-C905-4CAA-AAF6-32D51D05574A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpaceInvaders/GameScene+Creations.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "resetGame()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EBCFBBC4-C905-4CAA-AAF6-32D51D05574A - 6434d7f8886ee31b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SpaceInvaders.GameScene.resetGame() -&gt; ()"
+                  moduleName = "SpaceInvaders"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alumne/Desktop/ProgramacioPerMobils/SpaceInvadersGuillem/SpaceInvaders/GameScene+Creations.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "149"
+                  endingLineNumber = "149"
+                  offsetFromSymbolStart = "300">
+               </Location>
+               <Location
+                  uuid = "EBCFBBC4-C905-4CAA-AAF6-32D51D05574A - 8c832d06ead016ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.SKNode) -&gt; () in SpaceInvaders.GameScene.resetGame() -&gt; ()"
+                  moduleName = "SpaceInvaders"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alumne/Desktop/ProgramacioPerMobils/SpaceInvadersGuillem/SpaceInvaders/GameScene+Creations.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

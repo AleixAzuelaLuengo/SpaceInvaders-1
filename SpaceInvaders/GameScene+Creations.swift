@@ -21,6 +21,7 @@ extension GameScene {
         sprite.physicsBody?.affectedByGravity = false
         sprite.physicsBody?.linearDamping = 0
         sprite.physicsBody?.contactTestBitMask = 0x00000101
+        sprite.physicsBody?.collisionBitMask = 0x00000000
     }
     
 
@@ -49,7 +50,7 @@ extension GameScene {
             sprite.position = CGPoint(x: houseX, y: houseY)
             sprite.physicsBody?.affectedByGravity = false
             sprite.physicsBody?.categoryBitMask = 0x00000100
-            sprite.physicsBody?.isDynamic = false
+            sprite.physicsBody?.collisionBitMask = 0x00000000
             
             self.addChild(sprite)
         }
@@ -136,6 +137,21 @@ extension GameScene {
         sprite.physicsBody?.affectedByGravity = true
         sprite.physicsBody?.linearDamping = 0
         sprite.physicsBody?.contactTestBitMask = 0x00000110
+        sprite.physicsBody?.collisionBitMask = 0x00000000
     }
 
+    func resetGame()
+    {
+        let deleteObjects = self.children.filter { (node) -> Bool in
+            return !(node.name == "Player")
+        }
+        
+        deleteObjects.forEach { (node) in
+            node.removeFromParent()
+        }
+
+        self.addHouses(-(self.size.height / 2) + 100)
+        self.addEnemies(at: 100)
+
+    }
 }

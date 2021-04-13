@@ -8,6 +8,11 @@
 import SpriteKit
 import GameplayKit
 
+protocol GameSceneDelegate
+{
+    func restartGame()
+}
+
 class GameScene: SKScene {
     
     var spaceShip: SKSpriteNode!
@@ -23,6 +28,7 @@ class GameScene: SKScene {
     var currentScore: Int = 0
     let enemiesVerticaSpacing: CGFloat = 50.0
     var houseImpacts = [0, 0, 0, 0]
+    var gameDelegate : GameSceneDelegate?
     
     override func didMove(to view: SKView) {
         let spaceshipYPositon = -(self.size.height / 2) + 100
@@ -102,7 +108,10 @@ class GameScene: SKScene {
     }
 }
 
+
+
 extension GameScene {
+    
     private func cleanPastShoots() {
         for node in children {
             guard node.name == "shoot" || node.name == "bomb" else { continue }
